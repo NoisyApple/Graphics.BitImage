@@ -9,11 +9,6 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Drawing extends JFrame {
 
-  // private final int[] FIGURE = { 0x9C9C9C9C, 0xC9C9C9C9, 0x63636363,
-  // 0x36363636, 0x63636363, 0xC9C9C9C9, 0x9C9C9C9C,
-  // 0xC9C9C9C9, 0x63636363, 0x36363636, 0x63636363, 0xC9C9C9C9, 0x9C9C9C9C,
-  // 0xC9C9C9C9, 0x63636363 };
-
   private final int[] FIGURE = { 0x1FF80FE0, 0x1FFC1FF0, 0x01DC1C38, 0x18DE3F18, 0x18CE3B18, 0x19C77338, 0x1F8773F0,
       0x1F03E3E0, 0x0001C000, 0x00008000, 0x001FF800, 0x03FFFFC0, 0x1FFFFFF8, 0x7FFC3FFE, 0xFFE007FF, 0x7FFC3FFE,
       0x1FFFFFF8, 0x03FFFFC0, 0x001FF800 };
@@ -64,19 +59,6 @@ public class Drawing extends JFrame {
         while (true) {
           repaint();
 
-          // xPos += xSpeed;
-          // yPos += ySpeed;
-
-          // if (xPos + BIT_LENGTH * PIXEL_SIZE > width || xPos < 0) {
-          // xSpeed *= -1;
-          // generateColor();
-          // }
-
-          // if (yPos + FIGURE.length * PIXEL_SIZE > height || yPos < 0) {
-          // ySpeed *= -1;
-          // generateColor();
-          // }
-
           if (collitions < 10) {
             if (xPos + BIT_LENGTH * PIXEL_SIZE > width || xPos < 0 || yPos + FIGURE.length * PIXEL_SIZE > height
                 || yPos < 0) {
@@ -117,9 +99,6 @@ public class Drawing extends JFrame {
       g.fillRect(0, 0, width, height);
 
       g.setColor(color);
-
-      // System.out.println("X: " + xPos + ", Y: " + yPos + ", X_SPEED: " + xSpeed +
-      // ", Y_SPEED: " + ySpeed);
 
       for (int figure = 0; figure < FIGURE.length; figure++) {
         for (int bit = 0; bit < BIT_LENGTH; bit++) {
