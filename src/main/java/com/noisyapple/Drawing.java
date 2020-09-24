@@ -26,16 +26,20 @@ public class Drawing extends JFrame {
   private int width, height;
   private Color color;
 
-  private int xSpeed = 1;
-  private int ySpeed = 1;
+  private int xSpeed = 5;
+  private int ySpeed = 5;
 
   private int xPos = 0;
   private int yPos = 0;
+  private int collitions = 0;
 
   public Drawing(int width, int height) {
     this.width = width;
     this.height = height;
     this.generateColor();
+
+    this.xPos = (width / 2) - (BIT_LENGTH * PIXEL_SIZE / 2);
+    this.yPos = (height / 2) - (FIGURE.length * PIXEL_SIZE / 2);
 
     this.setTitle("Bit Drawing");
     this.setVisible(true);
@@ -60,21 +64,41 @@ public class Drawing extends JFrame {
         while (true) {
           repaint();
 
-          xPos += xSpeed;
-          yPos += ySpeed;
+          // xPos += xSpeed;
+          // yPos += ySpeed;
 
-          if (xPos + BIT_LENGTH * PIXEL_SIZE > width || xPos < 0) {
-            xSpeed *= -1;
-            generateColor();
-          }
+          // if (xPos + BIT_LENGTH * PIXEL_SIZE > width || xPos < 0) {
+          // xSpeed *= -1;
+          // generateColor();
+          // }
 
-          if (yPos + FIGURE.length * PIXEL_SIZE > height || yPos < 0) {
-            ySpeed *= -1;
-            generateColor();
+          // if (yPos + FIGURE.length * PIXEL_SIZE > height || yPos < 0) {
+          // ySpeed *= -1;
+          // generateColor();
+          // }
+
+          if (collitions < 10) {
+            if (xPos + BIT_LENGTH * PIXEL_SIZE > width || xPos < 0 || yPos + FIGURE.length * PIXEL_SIZE > height
+                || yPos < 0) {
+
+              System.out.println("Collitions: " + ++collitions);
+
+              generateColor();
+
+              xPos = ((int) Math.floor(Math.random() * width)) - BIT_LENGTH * PIXEL_SIZE;
+              yPos = ((int) Math.floor(Math.random() * height)) - FIGURE.length * PIXEL_SIZE;
+            }
+
+            xPos += (((int) Math.floor(Math.random() * 2)) == 1) ? xSpeed : -xSpeed;
+            yPos += (((int) Math.floor(Math.random() * 2)) == 1) ? ySpeed : -ySpeed;
+
+          } else {
+            System.exit(0);
           }
 
           try {
             Thread.sleep(1000 / UPDATE_RATE);
+
           } catch (InterruptedException ex) {
           }
         }
@@ -94,7 +118,8 @@ public class Drawing extends JFrame {
 
       g.setColor(color);
 
-      System.out.println("X: " + xPos + ", Y: " + yPos + ", X_SPEED: " + xSpeed + ", Y_SPEED: " + ySpeed);
+      // System.out.println("X: " + xPos + ", Y: " + yPos + ", X_SPEED: " + xSpeed +
+      // ", Y_SPEED: " + ySpeed);
 
       for (int figure = 0; figure < FIGURE.length; figure++) {
         for (int bit = 0; bit < BIT_LENGTH; bit++) {
